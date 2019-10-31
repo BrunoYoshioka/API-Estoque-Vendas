@@ -11,10 +11,10 @@ import javax.persistence.ManyToOne;
 public class ItensVenda {
 	
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long itvId;
-	private Long itvQtde;
-	private Long itvValor;
-	private Long itvTotal;
+	private Integer itvId;
+	private Integer itvQtde;
+	private Double itvValor;
+	private Double itvTotal;
 	@ManyToOne
 	private Venda venda;
 	@ManyToOne
@@ -25,7 +25,7 @@ public class ItensVenda {
 	}
 	
 	//construtor para q toda vez estancia e cria um objeto
-	public ItensVenda(Long itvQtde, Long itvValor, Long itvTotal, Produto produtos) {
+	public ItensVenda(Integer itvQtde, Double itvValor, Double itvTotal, Produto produtos) {
 		this.itvQtde = itvQtde;
 		this.itvValor = itvValor;
 		this.itvTotal = itvTotal;
@@ -33,35 +33,35 @@ public class ItensVenda {
 	}
 	
 
-	public Long getItvId() {
+	public Integer getItvId() {
 		return itvId;
 	}
 
-	public void setItvId(Long itvId) {
+	public void setItvId(Integer itvId) {
 		this.itvId = itvId;
 	}
 
-	public Long getItvQtde() {
+	public Integer getItvQtde() {
 		return itvQtde;
 	}
 
-	public void setItvQtde(Long itvQtde) {
+	public void setItvQtde(Integer itvQtde) {
 		this.itvQtde = itvQtde;
 	}
 
-	public Long getItvValor() {
+	public Double getItvValor() {
 		return itvValor;
 	}
 
-	public void setItvValor(Long itvValor) {
+	public void setItvValor(Double itvValor) {
 		this.itvValor = itvValor;
 	}
 
-	public Long getItvTotal() {
+	public Double getItvTotal() {
 		return itvTotal;
 	}
 
-	public void setItvTotal(Long itvTotal) {
+	public void setItvTotal(Double itvTotal) {
 		this.itvTotal = itvTotal;
 	}
 

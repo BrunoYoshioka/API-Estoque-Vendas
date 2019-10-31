@@ -9,14 +9,14 @@ import javax.persistence.Id;
 public class Categoria {
 	
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long catId;
+	private Integer catId;
 	private String catNome;
 	
 	
-	public Long getCatId() {
+	public Integer getCatId() {
 		return catId;
 	}
-	public void setCatId(Long catId) {
+	public void setCatId(Integer catId) {
 		this.catId = catId;
 	}
 	public String getCatNome() {

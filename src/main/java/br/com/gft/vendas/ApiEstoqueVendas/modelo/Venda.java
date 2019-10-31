@@ -1,56 +1,54 @@
 package br.com.gft.vendas.ApiEstoqueVendas.modelo;
 
+import br.com.gft.vendas.ApiEstoqueVendas.modelo.enums.StatusVenda;
+import br.com.gft.vendas.ApiEstoqueVendas.modelo.enums.TipoPagamento;
+
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 
 @Entity
 public class Venda {
 	
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long venId;
+	private Integer venId;
+
 	@ManyToOne
 	private Cliente cliente;
-	private LocalDateTime venDataHora = LocalDateTime.now();
-	private Long venNfiscal;
 	// Uma venda para 1 ou mais itens dos produtos. (montar lista)
 	@OneToMany(mappedBy = "venda")
 	private List<ItensVenda> itensVenda = new ArrayList<>();
-	private Float venTotal;
-	private Long venAvista;
-	private Long venNparcelas;
 	// Uma venda para 1 ou mais parcelas. (montar lista)
-	@OneToMany(mappedBy = "venda")
+	@OneToMany(mappedBy = "venId")
 	private List<ParcelaVenda> parcelaVenda = new ArrayList<>();
-	private String venStatus;
+	@Enumerated(EnumType.STRING)
+	private TipoPagamento tipoPagamento;
+	@Enumerated(EnumType.STRING)
+	private StatusVenda venStatus;
+
+	private LocalDateTime venDataHora = LocalDateTime.now();
+	private Long venNfiscal;
+	private Float venTotal;
+	private Long venNparcelas;
 	private Float venDesconto;
 	private Float venTotalLiquido;
 	private Float venValorPago;
 	private Float venTroco;
-	@ManyToOne
-	private TipoPagamento tipoPagamento;
-	
 	
 	public Venda() {
 	}
 	
 	//construtor para q toda vez estancia e cria um objeto
 	public Venda(Cliente cliente, LocalDateTime venDataHora, Long venNfiscal, List<ItensVenda> itensVenda,
-			Float venTotal, Long venAvista, Long venNparcelas, String venStatus, Float venDesconto,
+			Float venTotal, Long venAvista, Long venNparcelas, StatusVenda venStatus, Float venDesconto,
 			Float venTotalLiquido, Float venValorPago, Float venTroco, TipoPagamento tipoPagamento) {
 		this.cliente = cliente;
 		this.venDataHora = venDataHora;
 		this.venNfiscal = venNfiscal;
 		this.itensVenda = itensVenda;
 		this.venTotal = venTotal;
-		this.venAvista = venAvista;
 		this.venNparcelas = venNparcelas;
 		this.venStatus = venStatus;
 		this.venDesconto = venDesconto;
@@ -61,10 +59,10 @@ public class Venda {
 	}
 
 
-	public Long getVenId() {
+	public Integer getVenId() {
 		return venId;
 	}
-	public void setVenId(Long venId) {
+	public void setVenId(Integer venId) {
 		this.venId = venId;
 	}
 	public Cliente getCliente() {
@@ -97,22 +95,16 @@ public class Venda {
 	public void setVenTotal(Float venTotal) {
 		this.venTotal = venTotal;
 	}
-	public Long getVenAvista() {
-		return venAvista;
-	}
-	public void setVenAvista(Long venAvista) {
-		this.venAvista = venAvista;
-	}
 	public Long getVenNparcelas() {
 		return venNparcelas;
 	}
 	public void setVenNparcelas(Long venNparcelas) {
 		this.venNparcelas = venNparcelas;
 	}
-	public String getVenStatus() {
+	public StatusVenda getVenStatus() {
 		return venStatus;
 	}
-	public void setVenStatus(String venStatus) {
+	public void setVenStatus(StatusVenda venStatus) {
 		this.venStatus = venStatus;
 	}
 	public Float getVenDesconto() {

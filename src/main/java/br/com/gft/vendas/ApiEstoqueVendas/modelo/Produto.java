@@ -1,5 +1,7 @@
 package br.com.gft.vendas.ApiEstoqueVendas.modelo;
 
+import br.com.gft.vendas.ApiEstoqueVendas.modelo.enums.UnidMedida;
+
 import java.time.LocalDateTime;
 
 import javax.persistence.Entity;
@@ -22,7 +24,7 @@ public class Produto {
 	private Float prodQtde;
 	private LocalDateTime prodDtCadastro = LocalDateTime.now(); 
 	@Enumerated(EnumType.STRING)
-	private UnidMedida unidMedida = UnidMedida.Unitário; // Deixar Unitário no padrão.
+	private UnidMedida unidMedida = UnidMedida.UNITARIO; // Deixar Unitário no padrão.
 	// Muitos Produtos podem ter uma categoria
 	@ManyToOne
 	private Categoria categoria;
