@@ -3,6 +3,7 @@ package br.com.gft.vendas.ApiEstoqueVendas.modelo;
 import br.com.gft.vendas.ApiEstoqueVendas.modelo.enums.TipoCliente;
 
 import javax.persistence.*;
+import javax.print.DocFlavor.STRING;
 
 @Entity
 public class Cliente {
@@ -14,8 +15,7 @@ public class Cliente {
 	private String cliNome;
 	private String cliRgIe;
 	private String cliRsocial;
-	@Enumerated(EnumType.STRING)
-	private TipoCliente cliTipo = TipoCliente.PESSOA_FISICA;
+	private String cliTipo = TipoCliente.PESSOA_FISICA.getDescricao();
 	private String cliCep;
 	private String cliEndereco;
 	private String cliBairro;
@@ -59,11 +59,11 @@ public class Cliente {
 		this.cliRsocial = cliRsocial;
 	}
 
-	public TipoCliente getCliTipo() {
+	public String getCliTipo() {
 		return cliTipo;
 	}
 
-	public void setCliTipo(TipoCliente cliTipo) {
+	public void setCliTipo(String cliTipo) {
 		this.cliTipo = cliTipo;
 	}
 
