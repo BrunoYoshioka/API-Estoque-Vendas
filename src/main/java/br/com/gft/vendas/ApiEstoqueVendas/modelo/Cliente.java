@@ -2,16 +2,14 @@ package br.com.gft.vendas.ApiEstoqueVendas.modelo;
 
 import br.com.gft.vendas.ApiEstoqueVendas.modelo.enums.TipoCliente;
 
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
+import javax.persistence.*;
 
 @Entity
 public class Cliente {
-	
+
+	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Integer id;
 	private String cliCpfcnpj;
 	private String cliNome;
 	private String cliRgIe;
@@ -26,7 +24,7 @@ public class Cliente {
 	private String cliEmail;
 	private String cliEndnumero;
 	private String cliCidade;
-	private char cliEstado;
+	private String cliEstado;
 	
 	
 	public String getCliCpfcnpj() {
@@ -133,12 +131,20 @@ public class Cliente {
 		this.cliCidade = cliCidade;
 	}
 
-	public char getCliEstado() {
+	public String getCliEstado() {
 		return cliEstado;
 	}
 
-	public void setCliEstado(char cliEstado) {
+	public void setCliEstado(String cliEstado) {
 		this.cliEstado = cliEstado;
+	}
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
 	}
 
 	// Sobrescrita dos Métodos equals e hashCode para otimizar a consulta dos objetos

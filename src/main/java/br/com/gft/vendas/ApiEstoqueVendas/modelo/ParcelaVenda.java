@@ -10,17 +10,19 @@ import javax.persistence.ManyToOne;
 
 @Entity
 public class ParcelaVenda {
-	
-	@ManyToOne
-	private Long venId;
-	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long pveId;
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Integer pveId;
 	private Float pveValor;
 	private LocalDateTime pveDataPagto = LocalDateTime.now();
 	private LocalDateTime pveDataVecto = LocalDateTime.now();
+
+	@ManyToOne
+	private Venda venId;
 	
 	//construtor para q toda vez estancia e cria um objeto
-	public ParcelaVenda(Long venId, Long pveId, Float pveValor, LocalDateTime pveDataPagto,
+	public ParcelaVenda(Venda venId, Integer pveId, Float pveValor, LocalDateTime pveDataPagto,
 			LocalDateTime pveDataVecto) {
 		super();
 		this.venId = venId;
@@ -33,19 +35,19 @@ public class ParcelaVenda {
 	public ParcelaVenda() {
 	}
 
-	public Long getVenId() {
+	public Venda getVenId() {
 		return venId;
 	}
 
-	public void setVenId(Long venId) {
+	public void setVenId(Venda venId) {
 		this.venId = venId;
 	}
 
-	public Long getPveId() {
+	public Integer getPveId() {
 		return pveId;
 	}
 
-	public void setPveId(Long pveId) {
+	public void setPveId(Integer pveId) {
 		this.pveId = pveId;
 	}
 
