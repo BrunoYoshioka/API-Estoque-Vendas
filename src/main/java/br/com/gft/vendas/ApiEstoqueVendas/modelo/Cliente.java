@@ -1,5 +1,7 @@
 package br.com.gft.vendas.ApiEstoqueVendas.modelo;
 
+import br.com.gft.vendas.ApiEstoqueVendas.modelo.enums.TipoCliente;
+
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -15,7 +17,7 @@ public class Cliente {
 	private String cliRgIe;
 	private String cliRsocial;
 	@Enumerated(EnumType.STRING)
-	private TipoCliente cliTipo = TipoCliente.PESSOA_FÍSICA;
+	private TipoCliente cliTipo = TipoCliente.PESSOA_FISICA;
 	private String cliCep;
 	private String cliEndereco;
 	private String cliBairro;

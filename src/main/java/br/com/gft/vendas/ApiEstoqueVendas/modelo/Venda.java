@@ -1,5 +1,7 @@
 package br.com.gft.vendas.ApiEstoqueVendas.modelo;
 
+import br.com.gft.vendas.ApiEstoqueVendas.modelo.enums.TipoPagamento;
+
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
