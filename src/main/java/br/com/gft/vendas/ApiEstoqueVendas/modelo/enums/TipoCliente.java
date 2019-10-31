@@ -2,8 +2,8 @@ package br.com.gft.vendas.ApiEstoqueVendas.modelo.enums;
 
 public enum TipoCliente {
 	
-	PESSOA_FISICA(1, "Pessoa Física"),
-	PESSOA_JURIDICA(2, "Pessoa Jurídica");
+	PESSOA_FISICA(1, "PESSOA FÍSICA"),
+	PESSOA_JURIDICA(2, "PESSOA JURÍDICA");
 
 	private Integer id;
 	private String descricao;
