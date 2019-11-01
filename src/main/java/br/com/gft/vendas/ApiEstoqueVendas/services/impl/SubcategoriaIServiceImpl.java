@@ -1,23 +1,25 @@
-package br.com.gft.vendas.ApiEstoqueVendas.services;
+package br.com.gft.vendas.ApiEstoqueVendas.services.impl;
 
 import br.com.gft.vendas.ApiEstoqueVendas.exceptions.ObjectNotFoundException;
 import br.com.gft.vendas.ApiEstoqueVendas.modelo.SubCategoria;
 import br.com.gft.vendas.ApiEstoqueVendas.repository.SubcategoriaRepository;
+import br.com.gft.vendas.ApiEstoqueVendas.services.IService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
-public class SubcategoriaService {
+public class SubcategoriaIServiceImpl implements IService {
 
     @Autowired
     private SubcategoriaRepository subcategoriaRepository;
 
-    public Page<SubCategoria> listarSubcategorias(Pageable paginacao) {
-        return subcategoriaRepository.findAll(paginacao);
+    public List<Object> listar() {
+        return new ArrayList<>(subcategoriaRepository.findAll());
     }
 
     public SubCategoria encontrarPorId(Integer id) {
@@ -27,16 +29,18 @@ public class SubcategoriaService {
         ));
     }
 
-    public SubCategoria cadastrar(SubCategoria subCategoria) {
-        subCategoria.setScatId(null);
-        return subcategoriaRepository.save(subCategoria);
+    public SubCategoria cadastrar(Object subCategoria) {
+        SubCategoria subCat = (SubCategoria) subCategoria;
+        subCat.setScatId(null);
+        return subcategoriaRepository.save(subCat);
     }
 
-    public SubCategoria atualizar(Integer id, SubCategoria subCategoria) {
+    public SubCategoria atualizar(Integer id, Object subCategoria) {
         SubCategoria subCategoriaEncontradaPorId = encontrarPorId(id);
-        subCategoriaEncontradaPorId.setScatId(subCategoria.getScatId());
-        subCategoriaEncontradaPorId.setScatNome(subCategoria.getScatNome());
-        subCategoriaEncontradaPorId.setCategoria(subCategoria.getCategoria());
+        SubCategoria subCat = (SubCategoria) subCategoria;
+        subCategoriaEncontradaPorId.setScatId(subCat.getScatId());
+        subCategoriaEncontradaPorId.setScatNome(subCat.getScatNome());
+        subCategoriaEncontradaPorId.setCategoria(subCat.getCategoria());
         return subcategoriaRepository.save(subCategoriaEncontradaPorId);
     }
 

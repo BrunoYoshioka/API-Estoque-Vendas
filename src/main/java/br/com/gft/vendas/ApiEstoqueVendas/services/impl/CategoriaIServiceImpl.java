@@ -1,23 +1,26 @@
-package br.com.gft.vendas.ApiEstoqueVendas.services;
+package br.com.gft.vendas.ApiEstoqueVendas.services.impl;
 
 import br.com.gft.vendas.ApiEstoqueVendas.exceptions.ObjectNotFoundException;
 import br.com.gft.vendas.ApiEstoqueVendas.modelo.Categoria;
 import br.com.gft.vendas.ApiEstoqueVendas.repository.CategoriaRepository;
+import br.com.gft.vendas.ApiEstoqueVendas.services.IService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
-public class CategoriaService {
+public class CategoriaIServiceImpl implements IService {
 
     @Autowired
     private CategoriaRepository categoriaRepository;
 
-    public Page<Categoria> listarCategorias(Pageable paginacao) {
-        return categoriaRepository.findAll(paginacao);
+    public List<Object> listar() {
+        return new ArrayList<>(categoriaRepository.findAll());
     }
 
     public Categoria encontrarPorId(Integer id) {
@@ -27,15 +30,17 @@ public class CategoriaService {
         ));
     }
 
-    public Categoria cadastrar(Categoria categoria) {
-        categoria.setCatId(null);
-        return categoriaRepository.save(categoria);
+    public Categoria cadastrar(Object categoria) {
+        Categoria cat = (Categoria) categoria;
+        cat.setCatId(null);
+        return categoriaRepository.save(cat);
     }
 
-    public Categoria atualizar(Integer id, Categoria categoria) {
+    public Categoria atualizar(Integer id, Object categoria) {
         Categoria categoriaEncontradaPorId = encontrarPorId(id);
-        categoriaEncontradaPorId.setCatId(categoria.getCatId());
-        categoriaEncontradaPorId.setCatNome(categoria.getCatNome());
+        Categoria cat = (Categoria) categoria;
+        categoriaEncontradaPorId.setCatId(cat.getCatId());
+        categoriaEncontradaPorId.setCatNome(cat.getCatNome());
         return categoriaRepository.save(categoriaEncontradaPorId);
     }
 
