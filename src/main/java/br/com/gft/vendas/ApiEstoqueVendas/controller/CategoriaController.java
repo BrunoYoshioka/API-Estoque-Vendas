@@ -27,7 +27,7 @@ public class CategoriaController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Categoria> listarPorId(@PathVariable Integer id) {
+    public ResponseEntity<Categoria> encontrarPorId(@PathVariable Integer id) {
         Optional<Categoria> categoria = categoriaRepository.findById(id);
         if(categoria.isPresent())
             return ResponseEntity.ok(categoria.get());
@@ -44,6 +44,7 @@ public class CategoriaController {
 
     @PutMapping("/{id}")
     public ResponseEntity<Categoria> atualizar(@PathVariable Integer id, @RequestBody Categoria categoria) {
+        categoria.setCatId(id);
         Optional<Categoria> optionalCategoria = categoriaRepository.findById(id);
         if(optionalCategoria.isPresent()) {
             optionalCategoria.get().setCatId(categoria.getCatId());

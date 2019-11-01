@@ -9,17 +9,17 @@ import javax.persistence.ManyToOne;
 @Entity
 public class SubCategoria {
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long scatId;
+	private Integer scatId;
 	private String scatNome;
 	@ManyToOne
 	private Categoria categoria;
 	
 	
-	public Long getScatId() {
+	public Integer getScatId() {
 		return scatId;
 	}
 
-	public void setScatId(Long scatId) {
+	public void setScatId(Integer scatId) {
 		this.scatId = scatId;
 	}
 
