@@ -36,29 +36,8 @@ public class Venda {
 	private Float venTotalLiquido;
 	private Float venValorPago;
 	private Float venTroco;
-	
-	public Venda() {
-	}
-	
-	//construtor para q toda vez estancia e cria um objeto
-	public Venda(Cliente cliente, LocalDateTime venDataHora, Long venNfiscal, List<ItensVenda> itensVenda,
-			Float venTotal, Long venAvista, Long venNparcelas, StatusVenda venStatus, Float venDesconto,
-			Float venTotalLiquido, Float venValorPago, Float venTroco, TipoPagamento tipoPagamento) {
-		this.cliente = cliente;
-		this.venDataHora = venDataHora;
-		this.venNfiscal = venNfiscal;
-		this.itensVenda = itensVenda;
-		this.venTotal = venTotal;
-		this.venNparcelas = venNparcelas;
-		this.venStatus = venStatus;
-		this.venDesconto = venDesconto;
-		this.venTotalLiquido = venTotalLiquido;
-		this.venValorPago = venValorPago;
-		this.venTroco = venTroco;
-		this.tipoPagamento = tipoPagamento;
-	}
 
-
+	
 	public Integer getVenId() {
 		return venId;
 	}
