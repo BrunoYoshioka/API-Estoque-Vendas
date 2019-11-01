@@ -1,7 +1,6 @@
 package br.com.gft.vendas.ApiEstoqueVendas.controller;
 
 import br.com.gft.vendas.ApiEstoqueVendas.modelo.Categoria;
-import br.com.gft.vendas.ApiEstoqueVendas.repository.CategoriaRepository;
 import br.com.gft.vendas.ApiEstoqueVendas.services.CategoriaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -13,14 +12,10 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.net.URI;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/categorias")
 public class CategoriaController {
-
-    @Autowired
-    private CategoriaRepository categoriaRepository;
 
     @Autowired
     private CategoriaService categoriaService;
