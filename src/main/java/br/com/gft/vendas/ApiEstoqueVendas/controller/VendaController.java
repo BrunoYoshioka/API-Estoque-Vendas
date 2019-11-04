@@ -54,32 +54,4 @@ public class VendaController {
         return ResponseEntity.created(uri).body(venda);
     }
 
-    // Não vai existir alteração da venda
-//    @PutMapping("/{id}")
-//    public ResponseEntity<Venda> atualizar(@PathVariable Integer id, @RequestBody Venda venda) {
-//        Venda.setVenId(id);
-//        Optional<venda> optionalVenda = vendaRepository.findById(id);
-//        if(optionalVenda.isPresent()) {
-//            optionalVenda.get().setVenId(Venda.getVenId());
-//            optionalVenda.get().setVenNfiscal(venda.getVenNfiscal());
-//            optionalVenda.get().setVenDataHora(venda.getVenDataHora());
-//            optionalVenda.get().setVenStatus(venda.getVenStatus());
-//            optionalVenda.get().setTipoPagamento(venda.getTipoPagamento());
-//            optionalVenda.get().setCliente(venda.getCliente());
-//            vendaRepository.save(optionalVenda.get());
-//            return ResponseEntity.ok().build();
-//        }
-//        return ResponseEntity.notFound().build();
-//    }
-
-//    @DeleteMapping("/{id}")
-//    public ResponseEntity<?> deletar(@PathVariable Integer id) {
-//        Optional<Venda> venda = vendaRepository.findById(id);
-//        if(venda.isPresent()) {
-//            vendaRepository.delete(venda.get());
-//            return ResponseEntity.ok().build();
-//        }
-//        return ResponseEntity.notFound().build();
-//    }
-
 }

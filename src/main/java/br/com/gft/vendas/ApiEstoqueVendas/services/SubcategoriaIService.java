@@ -1,25 +1,23 @@
-package br.com.gft.vendas.ApiEstoqueVendas.services.impl;
+package br.com.gft.vendas.ApiEstoqueVendas.services;
 
 import br.com.gft.vendas.ApiEstoqueVendas.exceptions.ObjectNotFoundException;
 import br.com.gft.vendas.ApiEstoqueVendas.modelo.SubCategoria;
 import br.com.gft.vendas.ApiEstoqueVendas.repository.SubcategoriaRepository;
-import br.com.gft.vendas.ApiEstoqueVendas.services.IService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
-public class SubcategoriaIServiceImpl implements IService {
+public class SubcategoriaIService {
 
     @Autowired
     private SubcategoriaRepository subcategoriaRepository;
 
-    public List<Object> listar() {
-        return new ArrayList<>(subcategoriaRepository.findAll());
+    public Page<SubCategoria> listar(Pageable paginacao) {
+        return subcategoriaRepository.findAll(paginacao);
     }
 
     public SubCategoria encontrarPorId(Integer id) {

@@ -4,6 +4,7 @@ import java.util.Optional;
 
 import javax.validation.Valid;
 
+import br.com.gft.vendas.ApiEstoqueVendas.services.ClienteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -29,38 +30,43 @@ public class ClienteController {
 	@Autowired
 	private ClienteRepository clienteRepository;
 
+	@Autowired
+	private ClienteService clienteService;
+
 	@ApiOperation(value = "Retorna uma lista de Clientes")
 	@GetMapping("/clientes")
 	public Page<Cliente> listaClientes(@PageableDefault(sort = "id", direction = Sort.Direction.DESC, page = 0, size = 10)Pageable paginacao) {
-		return clienteRepository.findAll(paginacao);
+		return clienteService.listar(paginacao);
 	}
 
 	@ApiOperation(value = "Retorna um cliente unico")
 	@GetMapping("/cliente/{id}")
 	public ResponseEntity<Cliente> listaClienteUnico(@PathVariable Integer id) {
-		Optional<Cliente> optionalCliente = clienteRepository.findById(id);
-		if(optionalCliente.isPresent()) {
-            return ResponseEntity.ok(optionalCliente.get());
-        }
-        return ResponseEntity.notFound().build();
+		Cliente cliente = clienteService.encontrarPorId(id);
+        return ResponseEntity.ok(cliente);
 	}
 
 	@ApiOperation(value = "Salva um cliente")
 	@PostMapping("/cliente")
-	public Cliente salvaCliente(@RequestBody @Valid Cliente cliente) {
-		return clienteRepository.save(cliente);
-	}
-
-	@ApiOperation(value = "Deleta um cliente")
-	@DeleteMapping("/cliente")
-	public void deletaCliente(@RequestBody @Valid Cliente cliente) {
-		clienteRepository.delete(cliente);
+	public ResponseEntity<Cliente> salvaCliente(@RequestBody @Valid Cliente cliente, UriComponentsBuilder uriBuilder) {
+		cliente = clienteService.cadastrar(cliente);
+		URI uri = uriBuilder.path("/cliente/{id}").buildAndExpand(cliente.getId()).toUri();
+		return ResponseEntity.created(uri).body(cliente);
 	}
 
 	@ApiOperation(value = "Atualiza um cliente")
-	@PutMapping("/cliente")
-	public Cliente atualizaCliente(@RequestBody @Valid Cliente cliente) {
-		return clienteRepository.save(cliente);
+	@PutMapping("/cliente/{id}")
+	public ResponseEntity<Cliente> atualizaCliente(@RequestBody @Valid Cliente cliente, @PathVariable Integer id) {
+		cliente.setId(id);
+		cliente = clienteService.atualizar(id, cliente);
+		return ResponseEntity.ok(cliente);
+	}
+
+	@ApiOperation(value = "Deleta um cliente")
+	@DeleteMapping("/cliente/{id}")
+	public ResponseEntity<Void> deletaCliente(@PathVariable @Valid Integer id) {
+		clienteService.deletar(id);
+		return ResponseEntity.noContent().build();
 	}
 
 }
