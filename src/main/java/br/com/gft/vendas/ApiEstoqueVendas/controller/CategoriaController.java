@@ -1,7 +1,7 @@
 package br.com.gft.vendas.ApiEstoqueVendas.controller;
 
 import br.com.gft.vendas.ApiEstoqueVendas.modelo.Categoria;
-import br.com.gft.vendas.ApiEstoqueVendas.repository.CategoriaRepository;
+import br.com.gft.vendas.ApiEstoqueVendas.services.CategoriaIService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -11,58 +11,45 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import javax.validation.Valid;
 import java.net.URI;
-import java.util.Optional;
 
 @RestController
-@RequestMapping("/categorias")
+@RequestMapping("/apivendas")
 public class CategoriaController {
 
     @Autowired
-    private CategoriaRepository categoriaRepository;
+    private CategoriaIService categoriaService;
 
-    @GetMapping("/")
-    public Page<Categoria> listar(@PageableDefault(sort = "catId", direction = Sort.Direction.DESC, page = 0, size = 10) Pageable paginacao) {
-        return categoriaRepository.findAll(paginacao);
+    @GetMapping("/categorias")
+    public Page<Categoria> listar(@PageableDefault(sort="catId", direction = Sort.Direction.DESC, page = 0, size = 10) Pageable paginacao) {
+        return categoriaService.listar(paginacao);
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/categoria/{id}")
     public ResponseEntity<Categoria> encontrarPorId(@PathVariable Integer id) {
-        Optional<Categoria> categoria = categoriaRepository.findById(id);
-        if(categoria.isPresent())
-            return ResponseEntity.ok(categoria.get());
-        return ResponseEntity.notFound().build();
+        Categoria categoria = categoriaService.encontrarPorId(id);
+        return ResponseEntity.ok(categoria);
     }
 
-    @PostMapping
-    public ResponseEntity<Categoria> cadastrar(@RequestBody Categoria categoria, UriComponentsBuilder uriBuilder) {
-        categoriaRepository.save(categoria);
-
+    @PostMapping("/categoria")
+    public ResponseEntity<Categoria> cadastrar(@RequestBody @Valid Categoria categoria, UriComponentsBuilder uriBuilder) {
+        categoria = categoriaService.cadastrar(categoria);
         URI uri = uriBuilder.path("/categorias/{id}").buildAndExpand(categoria.getCatId()).toUri();
         return ResponseEntity.created(uri).body(categoria);
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<Categoria> atualizar(@PathVariable Integer id, @RequestBody Categoria categoria) {
+    @PutMapping("/categoria/{id}")
+    public ResponseEntity<Categoria> atualizar(@PathVariable @Valid Integer id, @RequestBody Categoria categoria) {
         categoria.setCatId(id);
-        Optional<Categoria> optionalCategoria = categoriaRepository.findById(id);
-        if(optionalCategoria.isPresent()) {
-            optionalCategoria.get().setCatId(categoria.getCatId());
-            optionalCategoria.get().setCatNome(categoria.getCatNome());
-            categoriaRepository.save(optionalCategoria.get());
-            return ResponseEntity.ok().build();
-        }
-        return ResponseEntity.notFound().build();
+        categoria = categoriaService.atualizar(id, categoria);
+        return ResponseEntity.ok(categoria);
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<?> remover(@PathVariable Integer id) {
-        Optional<Categoria> optionalCategoria = categoriaRepository.findById(id);
-        if(optionalCategoria.isPresent()) {
-            categoriaRepository.delete(optionalCategoria.get());
-            return ResponseEntity.ok().build();
-        }
-        return ResponseEntity.notFound().build();
+    @DeleteMapping("/categoria/{id}")
+    public ResponseEntity<Void> remover(@PathVariable Integer id) {
+        categoriaService.deletar(id);
+        return ResponseEntity.noContent().build();
     }
 
 }

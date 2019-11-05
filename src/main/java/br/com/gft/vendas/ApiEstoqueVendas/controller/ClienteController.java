@@ -1,29 +1,28 @@
 package br.com.gft.vendas.ApiEstoqueVendas.controller;
 
-import java.util.List;
+import java.util.Optional;
 
 import javax.validation.Valid;
 
+import br.com.gft.vendas.ApiEstoqueVendas.services.ClienteService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.util.UriComponentsBuilder;
 
 import br.com.gft.vendas.ApiEstoqueVendas.modelo.Cliente;
 import br.com.gft.vendas.ApiEstoqueVendas.repository.ClienteRepository;
 
-import io.swagger.annotations.Api;
+//import javax.xml.ws.Response;
+import java.net.URI;
 import io.swagger.annotations.ApiOperation;
 
 @RestController
-@RequestMapping(value = "/api")
-@Api("API REST ESTOQUE VENDAS")
+@RequestMapping(value = "/apivendas")
 @CrossOrigin(origins = "*") // definir qual dominio irá ser liberado, no meu caso todos
 public class ClienteController {
 
@@ -31,34 +30,43 @@ public class ClienteController {
 	@Autowired
 	private ClienteRepository clienteRepository;
 
+	@Autowired
+	private ClienteService clienteService;
+
 	@ApiOperation(value = "Retorna uma lista de Clientes")
 	@GetMapping("/clientes")
-	public List<Cliente> listaClientes() {
-		return clienteRepository.findAll();
+	public Page<Cliente> listaClientes(@PageableDefault(sort = "id", direction = Sort.Direction.DESC, page = 0, size = 10)Pageable paginacao) {
+		return clienteService.listar(paginacao);
 	}
 
 	@ApiOperation(value = "Retorna um cliente unico")
 	@GetMapping("/cliente/{id}")
-	public Cliente listaClienteUnico(@PathVariable Integer id) {
-		return clienteRepository.findById(id);
+	public ResponseEntity<Cliente> listaClienteUnico(@PathVariable Integer id) {
+		Cliente cliente = clienteService.encontrarPorId(id);
+        return ResponseEntity.ok(cliente);
 	}
 
 	@ApiOperation(value = "Salva um cliente")
 	@PostMapping("/cliente")
-	public Cliente salvaCliente(@RequestBody @Valid Cliente cliente) {
-		return clienteRepository.save(cliente);
-	}
-
-	@ApiOperation(value = "Deleta um cliente")
-	@DeleteMapping("/cliente")
-	public void deletaCliente(@RequestBody @Valid Cliente cliente) {
-		clienteRepository.delete(cliente);
+	public ResponseEntity<Cliente> salvaCliente(@RequestBody @Valid Cliente cliente, UriComponentsBuilder uriBuilder) {
+		cliente = clienteService.cadastrar(cliente);
+		URI uri = uriBuilder.path("/cliente/{id}").buildAndExpand(cliente.getId()).toUri();
+		return ResponseEntity.created(uri).body(cliente);
 	}
 
 	@ApiOperation(value = "Atualiza um cliente")
-	@PutMapping("/cliente")
-	public Cliente atualizaCliente(@RequestBody @Valid Cliente cliente) {
-		return clienteRepository.save(cliente);
+	@PutMapping("/cliente/{id}")
+	public ResponseEntity<Cliente> atualizaCliente(@RequestBody @Valid Cliente cliente, @PathVariable Integer id) {
+		cliente.setId(id);
+		cliente = clienteService.atualizar(id, cliente);
+		return ResponseEntity.ok(cliente);
+	}
+
+	@ApiOperation(value = "Deleta um cliente")
+	@DeleteMapping("/cliente/{id}")
+	public ResponseEntity<Void> deletaCliente(@PathVariable @Valid Integer id) {
+		clienteService.deletar(id);
+		return ResponseEntity.noContent().build();
 	}
 
 }
