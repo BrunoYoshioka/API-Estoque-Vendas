@@ -1,8 +1,9 @@
-package br.com.gft.vendas.ApiEstoqueVendas.controller;
+package br.com.gft.vendas.ApiEstoqueVendas.controllers;
 
 import java.net.URI;
 import java.util.Optional;
 
+import br.com.gft.vendas.ApiEstoqueVendas.models.dtos.VendaDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -10,18 +11,16 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import br.com.gft.vendas.ApiEstoqueVendas.modelo.Venda;
-import br.com.gft.vendas.ApiEstoqueVendas.repository.VendaRepository;
+import br.com.gft.vendas.ApiEstoqueVendas.models.Venda;
+import br.com.gft.vendas.ApiEstoqueVendas.repositories.VendaRepository;
 import io.swagger.annotations.ApiOperation;
 
 @RestController
@@ -34,8 +33,8 @@ public class VendaController {
 	
 	@ApiOperation(value = "Retorna todas as vendas")
 	@GetMapping("/vendas")
-    public Page<Venda> listar(@PageableDefault(sort = "venId", direction = Sort.Direction.DESC, page = 0, size = 10) Pageable paginacao) {
-        return vendaRepository.findAll(paginacao);
+    public Page<VendaDTO> listar(@PageableDefault(sort = "venId", direction = Sort.Direction.DESC, page = 0, size = 10) Pageable paginacao) {
+        return VendaDTO.converter(vendaRepository.findAll(paginacao));
     }
 
     @GetMapping("/{id}")

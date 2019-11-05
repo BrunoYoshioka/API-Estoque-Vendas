@@ -1,7 +1,7 @@
-package br.com.gft.vendas.ApiEstoqueVendas.controller;
+package br.com.gft.vendas.ApiEstoqueVendas.controllers;
 
-import br.com.gft.vendas.ApiEstoqueVendas.modelo.SubCategoria;
-import br.com.gft.vendas.ApiEstoqueVendas.services.SubcategoriaIService;
+import br.com.gft.vendas.ApiEstoqueVendas.models.SubCategoria;
+import br.com.gft.vendas.ApiEstoqueVendas.services.SubcategoriaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -19,7 +19,7 @@ import java.net.URI;
 public class SubcategoriaController {
 
     @Autowired
-    private SubcategoriaIService subcategoriaService;
+    private SubcategoriaService subcategoriaService;
 
     @GetMapping("/subcategorias")
     public Page<SubCategoria> listar(@PageableDefault(sort = "scatId", direction = Sort.Direction.DESC, page = 0, size = 10) Pageable paginacao) {

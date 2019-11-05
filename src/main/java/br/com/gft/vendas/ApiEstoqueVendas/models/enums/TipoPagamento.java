@@ -1,14 +1,14 @@
-package br.com.gft.vendas.ApiEstoqueVendas.modelo.enums;
+package br.com.gft.vendas.ApiEstoqueVendas.models.enums;
 
-public enum TipoCliente {
+public enum TipoPagamento {
 	
-	PESSOA_FISICA(1, "PESSOA FÍSICA"),
-	PESSOA_JURIDICA(2, "PESSOA JURÍDICA");
+	A_VISTA(1, "A vista"),
+	A_PRAZO(2, "A prazo");
 
 	private Integer id;
 	private String descricao;
 
-	TipoCliente(Integer id, String descricao) {
+	TipoPagamento(Integer id, String descricao) {
 		this.id = id;
 		this.descricao = descricao;
 	}

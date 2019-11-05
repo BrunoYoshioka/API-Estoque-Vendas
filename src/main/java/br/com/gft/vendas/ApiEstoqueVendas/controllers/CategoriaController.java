@@ -1,7 +1,7 @@
-package br.com.gft.vendas.ApiEstoqueVendas.controller;
+package br.com.gft.vendas.ApiEstoqueVendas.controllers;
 
-import br.com.gft.vendas.ApiEstoqueVendas.modelo.Categoria;
-import br.com.gft.vendas.ApiEstoqueVendas.services.CategoriaIService;
+import br.com.gft.vendas.ApiEstoqueVendas.models.Categoria;
+import br.com.gft.vendas.ApiEstoqueVendas.services.CategoriaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -19,7 +19,7 @@ import java.net.URI;
 public class CategoriaController {
 
     @Autowired
-    private CategoriaIService categoriaService;
+    private CategoriaService categoriaService;
 
     @GetMapping("/categorias")
     public Page<Categoria> listar(@PageableDefault(sort="catId", direction = Sort.Direction.DESC, page = 0, size = 10) Pageable paginacao) {
