@@ -1,8 +1,8 @@
 package br.com.gft.vendas.ApiEstoqueVendas.services;
 
 import br.com.gft.vendas.ApiEstoqueVendas.exceptions.ObjectNotFoundException;
-import br.com.gft.vendas.ApiEstoqueVendas.modelo.SubCategoria;
-import br.com.gft.vendas.ApiEstoqueVendas.repository.SubcategoriaRepository;
+import br.com.gft.vendas.ApiEstoqueVendas.models.SubCategoria;
+import br.com.gft.vendas.ApiEstoqueVendas.repositories.SubcategoriaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 import java.util.Optional;
 
 @Service
-public class SubcategoriaIService {
+public class SubcategoriaService {
 
     @Autowired
     private SubcategoriaRepository subcategoriaRepository;

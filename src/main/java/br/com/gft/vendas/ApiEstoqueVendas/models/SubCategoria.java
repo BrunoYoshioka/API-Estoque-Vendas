@@ -1,4 +1,4 @@
-package br.com.gft.vendas.ApiEstoqueVendas.modelo;
+package br.com.gft.vendas.ApiEstoqueVendas.models;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

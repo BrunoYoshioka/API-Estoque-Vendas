@@ -1,8 +1,8 @@
 package br.com.gft.vendas.ApiEstoqueVendas.services;
 
 import br.com.gft.vendas.ApiEstoqueVendas.exceptions.ObjectNotFoundException;
-import br.com.gft.vendas.ApiEstoqueVendas.modelo.Produto;
-import br.com.gft.vendas.ApiEstoqueVendas.repository.ProdutoRepository;
+import br.com.gft.vendas.ApiEstoqueVendas.models.Produto;
+import br.com.gft.vendas.ApiEstoqueVendas.repositories.ProdutoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
