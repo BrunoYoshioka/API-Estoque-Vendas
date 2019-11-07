@@ -1,27 +1,21 @@
 package br.com.gft.vendas.ApiEstoqueVendas.controllers;
 
-import java.net.URI;
-import java.util.Optional;
-
+import br.com.gft.vendas.ApiEstoqueVendas.models.Venda;
 import br.com.gft.vendas.ApiEstoqueVendas.models.dtos.VendaDTO;
+import br.com.gft.vendas.ApiEstoqueVendas.services.VendaService;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import br.com.gft.vendas.ApiEstoqueVendas.models.Venda;
-import br.com.gft.vendas.ApiEstoqueVendas.repositories.VendaRepository;
-import io.swagger.annotations.ApiOperation;
+import javax.validation.Valid;
+import java.net.URI;
+import java.util.Optional;
 
 @RestController
 @RequestMapping(value="/apivendas")
@@ -29,26 +23,23 @@ import io.swagger.annotations.ApiOperation;
 public class VendaController {
 	
 	@Autowired
-	private VendaRepository vendaRepository;
+	private VendaService vendaService;
 	
 	@ApiOperation(value = "Retorna todas as vendas")
 	@GetMapping("/vendas")
     public Page<VendaDTO> listar(@PageableDefault(sort = "venId", direction = Sort.Direction.DESC, page = 0, size = 10) Pageable paginacao) {
-        return VendaDTO.converter(vendaRepository.findAll(paginacao));
+        return vendaService.listar(paginacao);
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/venda/{id}")
     public ResponseEntity<Venda> encontrarPorId(@PathVariable Integer id) {
-        Optional<Venda> optionalVenda = vendaRepository.findById(id);
-        if(optionalVenda.isPresent()) {
-            return ResponseEntity.ok(optionalVenda.get());
-        }
-        return ResponseEntity.notFound().build();
+        Venda venda = vendaService.encontrarPorId(id);
+	    return ResponseEntity.ok(venda);
     }
 
     @PostMapping
-    public ResponseEntity<Venda> cadastrar(@RequestBody Venda venda, UriComponentsBuilder uriBuilder) {
-    	vendaRepository.save(venda);
+    public ResponseEntity<Venda> cadastrar(@RequestBody @Valid Venda venda, UriComponentsBuilder uriBuilder) {
+    	vendaService.cadastrar(venda);
         URI uri = uriBuilder.path("/Vendas/{id}").buildAndExpand(venda.getVenId()).toUri();
         return ResponseEntity.created(uri).body(venda);
     }

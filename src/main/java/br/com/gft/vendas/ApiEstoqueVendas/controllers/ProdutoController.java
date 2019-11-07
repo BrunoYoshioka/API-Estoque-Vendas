@@ -30,9 +30,6 @@ public class ProdutoController {
 	@Autowired
 	private ProdutoService produtoService;
 
-	@Autowired
-	private JmsTemplate jmsTemplate;
-
 	@ApiOperation(value = "Retorna uma lista de Produtos")
 	@GetMapping("/produtos")
 	public Page<Produto> listaProdutos(@PageableDefault(sort = "id", direction = Sort.Direction.DESC, page = 0, size = 10) Pageable paginacao){
@@ -67,11 +64,6 @@ public class ProdutoController {
 	public ResponseEntity<Void> deletaProduto(@PathVariable @Valid Integer id) {
 		produtoService.deletar(id);
 		return ResponseEntity.noContent().build();
-	}
-
-	@PostMapping("/send")
-	public void send(@RequestBody Produto produto) {
-		jmsTemplate.convertAndSend("produtoQueue", produto);
 	}
 
 }

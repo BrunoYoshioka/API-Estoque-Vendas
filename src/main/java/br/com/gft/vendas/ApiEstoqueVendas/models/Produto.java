@@ -1,6 +1,7 @@
 package br.com.gft.vendas.ApiEstoqueVendas.models;
 
 import br.com.gft.vendas.ApiEstoqueVendas.models.enums.UnidMedida;
+import org.hibernate.validator.constraints.Length;
 
 import java.time.LocalDateTime;
 
@@ -11,13 +12,17 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 @Entity
 public class Produto {
 	
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
+	@NotEmpty @NotNull @Length(min=5)
 	private String prodNome;
+	@NotEmpty @NotNull @Length(min=5)
 	private String prodDescricao;
 	private Float prodValorpago;
 	private Float prodValorvenda;

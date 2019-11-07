@@ -1,8 +1,11 @@
 package br.com.gft.vendas.ApiEstoqueVendas.models;
 
 import br.com.gft.vendas.ApiEstoqueVendas.models.enums.TipoCliente;
+import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 @Entity
 public class Cliente {
@@ -10,9 +13,13 @@ public class Cliente {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
+	@NotEmpty @NotNull @Length(min=14)
 	private String cliCpfcnpj;
+	@NotEmpty @NotNull @Length(min=3)
 	private String cliNome;
+	@NotEmpty @NotNull @Length(min=13)
 	private String cliRgIe;
+	@NotEmpty @NotNull @Length(min=3)
 	private String cliRsocial;
 	private String cliTipo = TipoCliente.PESSOA_FISICA.getDescricao();
 	private String cliCep;

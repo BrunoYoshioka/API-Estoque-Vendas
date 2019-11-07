@@ -27,10 +27,9 @@ public class SubcategoriaService {
         ));
     }
 
-    public SubCategoria cadastrar(Object subCategoria) {
-        SubCategoria subCat = (SubCategoria) subCategoria;
-        subCat.setScatId(null);
-        return subcategoriaRepository.save(subCat);
+    public SubCategoria cadastrar(SubCategoria subCategoria) {
+        subCategoria.setScatId(null);
+        return subcategoriaRepository.save(subCategoria);
     }
 
     public SubCategoria atualizar(Integer id, Object subCategoria) {
