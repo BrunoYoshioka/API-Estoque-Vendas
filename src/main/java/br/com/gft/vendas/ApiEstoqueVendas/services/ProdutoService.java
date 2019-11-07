@@ -6,6 +6,8 @@ import br.com.gft.vendas.ApiEstoqueVendas.repositories.ProdutoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.jms.JmsException;
+import org.springframework.jms.annotation.JmsListener;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -46,6 +48,12 @@ public class ProdutoService {
     public void deletar(Integer id) {
         Produto produto = encontrarPorId(id);
         produtoRepository.delete(produto);
+    }
+    
+    @JmsListener(destination = "produtoQueue", containerFactory = "myFactory")
+    private void receiveMessage(Produto produto) throws JmsException {
+    	System.out.println("Received <" + produto.toString() + ">");
+    	produtoRepository.save(produto);
     }
 
 }

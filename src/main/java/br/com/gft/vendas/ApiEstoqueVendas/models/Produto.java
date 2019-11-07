@@ -145,4 +145,12 @@ public class Produto {
 		return true;
 	}
 
+	@Override
+	public String toString() {
+		return "Produto {id=" + id + ", prodNome=" + prodNome + ", prodDescricao=" + prodDescricao + ", prodValorpago="
+				+ prodValorpago + ", prodValorvenda=" + prodValorvenda + ", prodQtde=" + prodQtde + ", prodDtCadastro="
+				+ prodDtCadastro + ", unidMedida=" + unidMedida + ", categoria=" + categoria + ", subCategoria="
+				+ subCategoria + "}";
+	}
+
 }
