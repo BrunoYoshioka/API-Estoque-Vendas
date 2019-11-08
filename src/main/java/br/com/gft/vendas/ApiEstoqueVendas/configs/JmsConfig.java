@@ -1,6 +1,5 @@
 package br.com.gft.vendas.ApiEstoqueVendas.configs;
 
-import br.com.gft.vendas.ApiEstoqueVendas.models.Categoria;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.jms.DefaultJmsListenerContainerFactoryConfigurer;
@@ -14,7 +13,6 @@ import org.springframework.jms.support.converter.MessageConverter;
 import org.springframework.jms.support.converter.MessageType;
 
 import javax.jms.ConnectionFactory;
-import java.util.HashMap;
 
 @Configuration
 @EnableJms
@@ -34,9 +32,6 @@ public class JmsConfig {
     public MessageConverter jacksonJmsMessageConverter() {
         MappingJackson2MessageConverter converter = new MappingJackson2MessageConverter();
         converter.setTargetType(MessageType.TEXT);
-        HashMap<String, Class<?>> typeIdMappings = new HashMap<>();
-        typeIdMappings.put(Categoria.class.getSimpleName(), Categoria.class);
-        converter.setTypeIdMappings(typeIdMappings);
         converter.setTypeIdPropertyName("_type");
         converter.setObjectMapper(mapper);
         return converter;

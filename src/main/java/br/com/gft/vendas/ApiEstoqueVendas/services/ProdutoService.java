@@ -49,11 +49,5 @@ public class ProdutoService {
         Produto produto = encontrarPorId(id);
         produtoRepository.delete(produto);
     }
-    
-    @JmsListener(destination = "produtoQueue", containerFactory = "myFactory")
-    private void receiveMessage(Produto produto) throws JmsException {
-    	System.out.println("Received <" + produto.toString() + ">");
-    	produtoRepository.save(produto);
-    }
 
 }

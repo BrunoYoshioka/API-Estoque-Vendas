@@ -1,8 +1,9 @@
 package br.com.gft.vendas.ApiEstoqueVendas.controllers;
 
-import javax.validation.Valid;
-
+import br.com.gft.vendas.ApiEstoqueVendas.models.Cliente;
+import br.com.gft.vendas.ApiEstoqueVendas.repositories.ClienteRepository;
 import br.com.gft.vendas.ApiEstoqueVendas.services.ClienteService;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -12,12 +13,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import br.com.gft.vendas.ApiEstoqueVendas.models.Cliente;
-import br.com.gft.vendas.ApiEstoqueVendas.repositories.ClienteRepository;
-
-//import javax.xml.ws.Response;
+import javax.validation.Valid;
 import java.net.URI;
-import io.swagger.annotations.ApiOperation;
 
 @RestController
 @RequestMapping(value = "/apivendas")
