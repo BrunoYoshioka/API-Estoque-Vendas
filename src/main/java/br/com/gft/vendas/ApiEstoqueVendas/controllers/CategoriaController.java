@@ -8,7 +8,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
-import org.springframework.jms.core.JmsTemplate;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -21,9 +20,6 @@ public class CategoriaController {
 
     @Autowired
     private CategoriaService categoriaService;
-
-    @Autowired
-    private JmsTemplate jmsTemplate;
 
     @GetMapping("/categorias")
     public Page<Categoria> listar(@PageableDefault(sort="catId", direction = Sort.Direction.DESC, page = 0, size = 10) Pageable paginacao) {
@@ -54,11 +50,6 @@ public class CategoriaController {
     public ResponseEntity<Void> remover(@PathVariable Integer id) {
         categoriaService.deletar(id);
         return ResponseEntity.noContent().build();
-    }
-
-    @PostMapping("/categoria/send")
-    public void send(@RequestBody Categoria categoria) {
-        jmsTemplate.convertAndSend("categoriaQueue", categoria);
     }
 
 }

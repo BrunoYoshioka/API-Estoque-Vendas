@@ -1,22 +1,19 @@
 package br.com.gft.vendas.ApiEstoqueVendas.controllers;
 
-import javax.validation.Valid;
-
+import br.com.gft.vendas.ApiEstoqueVendas.models.Produto;
+import br.com.gft.vendas.ApiEstoqueVendas.repositories.ProdutoRepository;
 import br.com.gft.vendas.ApiEstoqueVendas.services.ProdutoService;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
-import org.springframework.jms.core.JmsTemplate;
 import org.springframework.web.bind.annotation.*;
-
-import br.com.gft.vendas.ApiEstoqueVendas.models.Produto;
-import br.com.gft.vendas.ApiEstoqueVendas.repositories.ProdutoRepository;
-import io.swagger.annotations.ApiOperation;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import javax.validation.Valid;
 import java.net.URI;
 
 @RestController

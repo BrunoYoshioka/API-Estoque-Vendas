@@ -1,5 +1,6 @@
 package br.com.gft.vendas.ApiEstoqueVendas.controllers;
 
+import br.com.gft.vendas.ApiEstoqueVendas.form.AtualizacaoVendaForm;
 import br.com.gft.vendas.ApiEstoqueVendas.models.Venda;
 import br.com.gft.vendas.ApiEstoqueVendas.models.dtos.VendaDTO;
 import br.com.gft.vendas.ApiEstoqueVendas.services.VendaService;
@@ -15,7 +16,6 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import javax.validation.Valid;
 import java.net.URI;
-import java.util.Optional;
 
 @RestController
 @RequestMapping(value="/apivendas")
@@ -37,11 +37,17 @@ public class VendaController {
 	    return ResponseEntity.ok(venda);
     }
 
-    @PostMapping
+    @PostMapping("/venda")
     public ResponseEntity<Venda> cadastrar(@RequestBody @Valid Venda venda, UriComponentsBuilder uriBuilder) {
     	vendaService.cadastrar(venda);
         URI uri = uriBuilder.path("/Vendas/{id}").buildAndExpand(venda.getVenId()).toUri();
         return ResponseEntity.created(uri).body(venda);
+    }
+
+    @PutMapping("/venda/{id}")
+    public ResponseEntity<Venda> atualizar(@PathVariable Integer id, @RequestBody @Valid AtualizacaoVendaForm vendaForm) {
+        Venda venda = vendaService.atualizar(id, vendaForm);
+        return ResponseEntity.ok(venda);
     }
 
 }
