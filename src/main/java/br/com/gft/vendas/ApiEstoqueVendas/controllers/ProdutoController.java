@@ -27,37 +27,37 @@ public class ProdutoController {
 	@Autowired
 	private ProdutoService produtoService;
 
-	@ApiOperation(value = "Retorna uma lista de Produtos")
 	@GetMapping("/produtos")
+	@ApiOperation(value = "Retorna uma lista de Produtos")
 	public Page<Produto> listaProdutos(@PageableDefault(sort = "id", direction = Sort.Direction.DESC, page = 0, size = 10) Pageable paginacao){
 		return produtoService.listar(paginacao);
 	}
-	
-	@ApiOperation(value = "Retorna um produto unico")
+
 	@GetMapping("/produto/{id}")
+	@ApiOperation(value = "Retorna um produto pelo Id")
 	public ResponseEntity<Produto> listaProdutoUnico(@PathVariable Integer id) {
 		Produto produto = produtoService.encontrarPorId(id);
 		return ResponseEntity.ok(produto);
 	}
-	
-	@ApiOperation(value = "Salva um produto")
+
 	@PostMapping("/produto")
+	@ApiOperation(value = "Cadastrar um produto")
 	public ResponseEntity<Produto> salvaProduto(@RequestBody @Valid Produto produto, UriComponentsBuilder uriBuilder) {
 		produto = produtoService.cadastrar(produto);
 		URI uri = uriBuilder.path("/produto/{id}").buildAndExpand(produto.getProdId()).toUri();
 		return  ResponseEntity.created(uri).body(produto);
 	}
 
-	@ApiOperation(value = "Atualiza um produto")
 	@PutMapping("/produto/{id}")
+	@ApiOperation(value = "Atualizar um produto")
 	public ResponseEntity<Produto> atualizaProduto(@RequestBody @Valid Produto produto, @PathVariable Integer id) {
 		produto.setProdId(id);
 		produto = produtoService.atualizar(id, produto);
 		return ResponseEntity.ok(produto);
 	}
-	
-	@ApiOperation(value = "Deleta um produto")
+
 	@DeleteMapping("/produto/{id}")
+	@ApiOperation(value = "Deletar um produto")
 	public ResponseEntity<Void> deletaProduto(@PathVariable @Valid Integer id) {
 		produtoService.deletar(id);
 		return ResponseEntity.noContent().build();

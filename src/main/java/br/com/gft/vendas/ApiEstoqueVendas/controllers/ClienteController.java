@@ -28,37 +28,37 @@ public class ClienteController {
 	@Autowired
 	private ClienteService clienteService;
 
-	@ApiOperation(value = "Retorna uma lista de Clientes")
 	@GetMapping("/clientes")
+	@ApiOperation(value = "Retorna uma lista de Clientes")
 	public Page<Cliente> listaClientes(@PageableDefault(sort = "id", direction = Sort.Direction.DESC, page = 0, size = 10)Pageable paginacao) {
 		return clienteService.listar(paginacao);
 	}
 
-	@ApiOperation(value = "Retorna um cliente unico")
 	@GetMapping("/cliente/{id}")
+	@ApiOperation(value = "Retorna um Cliente pelo Id")
 	public ResponseEntity<Cliente> listaClienteUnico(@PathVariable Integer id) {
 		Cliente cliente = clienteService.encontrarPorId(id);
         return ResponseEntity.ok(cliente);
 	}
 
-	@ApiOperation(value = "Salva um cliente")
 	@PostMapping("/cliente")
+	@ApiOperation(value = "Cadastrar um cliente")
 	public ResponseEntity<Cliente> salvaCliente(@RequestBody @Valid Cliente cliente, UriComponentsBuilder uriBuilder) {
 		cliente = clienteService.cadastrar(cliente);
 		URI uri = uriBuilder.path("/cliente/{id}").buildAndExpand(cliente.getId()).toUri();
 		return ResponseEntity.created(uri).body(cliente);
 	}
 
-	@ApiOperation(value = "Atualiza um cliente")
 	@PutMapping("/cliente/{id}")
+	@ApiOperation(value = "Atualizar um cliente")
 	public ResponseEntity<Cliente> atualizaCliente(@RequestBody @Valid Cliente cliente, @PathVariable Integer id) {
 		cliente.setId(id);
 		cliente = clienteService.atualizar(id, cliente);
 		return ResponseEntity.ok(cliente);
 	}
 
-	@ApiOperation(value = "Deleta um cliente")
 	@DeleteMapping("/cliente/{id}")
+	@ApiOperation(value = "Deletar um cliente")
 	public ResponseEntity<Void> deletaCliente(@PathVariable @Valid Integer id) {
 		clienteService.deletar(id);
 		return ResponseEntity.noContent().build();

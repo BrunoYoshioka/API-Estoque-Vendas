@@ -25,20 +25,22 @@ public class VendaController {
 	
 	@Autowired
 	private VendaService vendaService;
-	
-	@ApiOperation(value = "Retorna todas as vendas")
+
 	@GetMapping("/vendas")
+    @ApiOperation(value = "Retorna uma lista de Vendas")
     public Page<VendaDTO> listar(@PageableDefault(sort = "venId", direction = Sort.Direction.DESC, page = 0, size = 10) Pageable paginacao) {
         return vendaService.listar(paginacao);
     }
 
     @GetMapping("/venda/{id}")
+    @ApiOperation(value = "Retorna uma Venda pelo Id")
     public ResponseEntity<Venda> encontrarPorId(@PathVariable Integer id) {
         Venda venda = vendaService.encontrarPorId(id);
 	    return ResponseEntity.ok(venda);
     }
 
     @PostMapping("/venda")
+    @ApiOperation(value = "Cadastrar uma Venda")
     public ResponseEntity<Venda> cadastrar(@RequestBody @Valid Venda venda, UriComponentsBuilder uriBuilder) {
     	vendaService.cadastrar(venda);
         URI uri = uriBuilder.path("/venda/{id}").buildAndExpand(venda.getVenId()).toUri();
@@ -46,6 +48,7 @@ public class VendaController {
     }
 
     @PutMapping("/venda/{id}")
+    @ApiOperation(value = "Atualizar o Status da Venda")
     public ResponseEntity<Venda> atualizar(@RequestBody @Valid VendaForm form, @PathVariable Integer id) {
 	    Venda venda = vendaService.atualizar(form, id);
 	    return ResponseEntity.ok(venda);
