@@ -1,5 +1,6 @@
 package br.com.gft.vendas.ApiEstoqueVendas.controllers;
 
+import br.com.gft.vendas.ApiEstoqueVendas.jms.EnviarVendaJms;
 import br.com.gft.vendas.ApiEstoqueVendas.models.Venda;
 import br.com.gft.vendas.ApiEstoqueVendas.models.dtos.VendaDTO;
 import br.com.gft.vendas.ApiEstoqueVendas.models.form.VendaForm;
@@ -26,6 +27,9 @@ public class VendaController {
 	@Autowired
 	private VendaService vendaService;
 
+	@Autowired
+    private EnviarVendaJms enviarVendaJms;
+
 	@GetMapping("/vendas")
     @ApiOperation(value = "Retorna uma lista de Vendas")
     public Page<VendaDTO> listar(@PageableDefault(sort = "venId", direction = Sort.Direction.DESC, page = 0, size = 10) Pageable paginacao) {
@@ -43,6 +47,7 @@ public class VendaController {
     @ApiOperation(value = "Cadastrar uma Venda")
     public ResponseEntity<Venda> cadastrar(@RequestBody @Valid Venda venda, UriComponentsBuilder uriBuilder) {
     	vendaService.cadastrar(venda);
+        enviarVendaJms.enviarVendaJms(venda);
         URI uri = uriBuilder.path("/venda/{id}").buildAndExpand(venda.getVenId()).toUri();
         return ResponseEntity.created(uri).body(venda);
     }

@@ -19,9 +19,6 @@ public class VendaService {
     @Autowired
     private VendaRepository vendaRepository;
 
-    @Autowired
-    private JmsTemplate jmsTemplate;
-
     public Page<VendaDTO> listar(Pageable paginacao) {
         return VendaDTO.converter(vendaRepository.findAll(paginacao));
     }
@@ -35,9 +32,7 @@ public class VendaService {
 
     public Venda cadastrar(Venda venda) {
         venda.setVenId(null);
-        Venda ven = vendaRepository.save(venda);
-        jmsTemplate.convertAndSend("vendaQueue", venda);
-        return ven;
+        return vendaRepository.save(venda);
     }
 
     public Venda atualizar(VendaForm form, Integer id) {
