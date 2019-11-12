@@ -22,7 +22,6 @@ public class Cliente {
 	private String cliNome;
 	@NotEmpty @NotNull @Length(min=13)
 	private String cliRgIe;
-	@NotEmpty @NotNull @Length(min=3)
 	private String cliRsocial;
 	private String cliTipo = TipoCliente.PESSOA_FISICA.getDescricao();
 	private String cliCep;

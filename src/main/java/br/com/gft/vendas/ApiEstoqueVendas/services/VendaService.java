@@ -35,8 +35,9 @@ public class VendaService {
 
     public Venda cadastrar(Venda venda) {
         venda.setVenId(null);
+        venda = vendaRepository.save(venda);
         jmsTemplate.convertAndSend("vendaQueue", venda);
-        return vendaRepository.save(venda);
+        return venda;
     }
 
     public Venda atualizar(VendaAtualizarDTO form, Integer id) {

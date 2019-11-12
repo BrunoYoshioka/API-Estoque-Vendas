@@ -3,11 +3,13 @@ package br.com.gft.vendas.ApiEstoqueVendas.models.dtos;
 import br.com.gft.vendas.ApiEstoqueVendas.models.Produto;
 import org.springframework.beans.BeanUtils;
 
+import java.math.BigDecimal;
+
 public class ItensVendaDTO {
     private Integer itvId;
     private Integer itvQtde;
-    private Double itvValor;
-    private Double itvTotal;
+    private BigDecimal itvValor;
+    private BigDecimal itvTotal;
     private Produto produtos;
 
     public ItensVendaDTO() {
@@ -29,19 +31,19 @@ public class ItensVendaDTO {
         this.itvQtde = itvQtde;
     }
 
-    public Double getItvValor() {
+    public BigDecimal getItvValor() {
         return itvValor;
     }
 
-    public void setItvValor(Double itvValor) {
+    public void setItvValor(BigDecimal itvValor) {
         this.itvValor = itvValor;
     }
 
-    public Double getItvTotal() {
+    public BigDecimal getItvTotal() {
         return itvTotal;
     }
 
-    public void setItvTotal(Double itvTotal) {
+    public void setItvTotal(BigDecimal itvTotal) {
         this.itvTotal = itvTotal;
     }
 

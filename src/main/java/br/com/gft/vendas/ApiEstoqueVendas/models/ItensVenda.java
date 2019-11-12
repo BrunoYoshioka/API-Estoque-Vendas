@@ -4,6 +4,7 @@ package br.com.gft.vendas.ApiEstoqueVendas.models;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 
 @Entity
 public class ItensVenda {
@@ -11,8 +12,8 @@ public class ItensVenda {
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer itvId;
 	private Integer itvQtde;
-	private Double itvValor;
-	private Double itvTotal;
+	private BigDecimal itvValor;
+	private BigDecimal itvTotal;
 
 	@JsonIgnore
 	@ManyToOne
@@ -26,7 +27,7 @@ public class ItensVenda {
 	}
 	
 	//construtor para q toda vez estancia e cria um objeto
-	public ItensVenda(Integer itvQtde, Double itvValor, Double itvTotal, Produto produtos) {
+	public ItensVenda(Integer itvQtde, BigDecimal itvValor, BigDecimal itvTotal, Produto produtos) {
 		this.itvQtde = itvQtde;
 		this.itvValor = itvValor;
 		this.itvTotal = itvTotal;
@@ -50,19 +51,19 @@ public class ItensVenda {
 		this.itvQtde = itvQtde;
 	}
 
-	public Double getItvValor() {
+	public BigDecimal getItvValor() {
 		return itvValor;
 	}
 
-	public void setItvValor(Double itvValor) {
+	public void setItvValor(BigDecimal itvValor) {
 		this.itvValor = itvValor;
 	}
 
-	public Double getItvTotal() {
+	public BigDecimal getItvTotal() {
 		return itvTotal;
 	}
 
-	public void setItvTotal(Double itvTotal) {
+	public void setItvTotal(BigDecimal itvTotal) {
 		this.itvTotal = itvTotal;
 	}
 

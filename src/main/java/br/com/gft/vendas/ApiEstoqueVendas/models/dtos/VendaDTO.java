@@ -5,6 +5,7 @@ import br.com.gft.vendas.ApiEstoqueVendas.models.Venda;
 import org.springframework.beans.BeanUtils;
 import org.springframework.data.domain.Page;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,15 +29,15 @@ public class VendaDTO {
         return venda.getVenNparcelas();
     }
 
-    public Float venDesconto() {
+    public BigDecimal venDesconto() {
         return venda.getVenDesconto();
     }
 
-    public Float getVenValorPago() {
+    public BigDecimal getVenValorPago() {
         return venda.getVenValorPago();
     }
 
-    public Float getVenTroco() {
+    public BigDecimal getVenTroco() {
         return venda.getVenTroco();
     }
 

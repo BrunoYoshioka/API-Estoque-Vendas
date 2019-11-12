@@ -1,6 +1,7 @@
 package br.com.gft.vendas.ApiEstoqueVendas.models;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Entity
@@ -9,7 +10,7 @@ public class ParcelaVenda {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer pveId;
-	private Float pveValor;
+	private BigDecimal pveValor;
 	private LocalDateTime pveDataPagto = LocalDateTime.now();
 	private LocalDateTime pveDataVecto = LocalDateTime.now();
 
@@ -17,7 +18,7 @@ public class ParcelaVenda {
 	private Venda venId;
 	
 	//construtor para q toda vez estancia e cria um objeto
-	public ParcelaVenda(Venda venId, Integer pveId, Float pveValor, LocalDateTime pveDataPagto,
+	public ParcelaVenda(Venda venId, Integer pveId, BigDecimal pveValor, LocalDateTime pveDataPagto,
 			LocalDateTime pveDataVecto) {
 		super();
 		this.venId = venId;
@@ -46,11 +47,11 @@ public class ParcelaVenda {
 		this.pveId = pveId;
 	}
 
-	public Float getPveValor() {
+	public BigDecimal getPveValor() {
 		return pveValor;
 	}
 
-	public void setPveValor(Float pveValor) {
+	public void setPveValor(BigDecimal pveValor) {
 		this.pveValor = pveValor;
 	}
 
