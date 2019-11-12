@@ -1,5 +1,6 @@
 package br.com.gft.vendas.ApiEstoqueVendas.models.dtos;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 public class ProdutoDTO {
@@ -7,8 +8,8 @@ public class ProdutoDTO {
     private Integer id;
     private String prodNome;
     private String prodDescricao;
-    private Float prodValorpago;
-    private Float prodValorvenda;
+    private BigDecimal prodValorpago;
+    private BigDecimal prodValorvenda;
     private Float prodQtde;
     private LocalDateTime prodDtCadastro = LocalDateTime.now();
 
@@ -39,19 +40,19 @@ public class ProdutoDTO {
         this.prodDescricao = prodDescricao;
     }
 
-    public Float getProdValorpago() {
+    public BigDecimal getProdValorpago() {
         return prodValorpago;
     }
 
-    public void setProdValorpago(Float prodValorpago) {
+    public void setProdValorpago(BigDecimal prodValorpago) {
         this.prodValorpago = prodValorpago;
     }
 
-    public Float getProdValorvenda() {
+    public BigDecimal getProdValorvenda() {
         return prodValorvenda;
     }
 
-    public void setProdValorvenda(Float prodValorvenda) {
+    public void setProdValorvenda(BigDecimal prodValorvenda) {
         this.prodValorvenda = prodValorvenda;
     }
 

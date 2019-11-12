@@ -4,6 +4,7 @@ import br.com.gft.vendas.ApiEstoqueVendas.models.enums.StatusVenda;
 import br.com.gft.vendas.ApiEstoqueVendas.models.enums.TipoPagamento;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -29,12 +30,12 @@ public class Venda {
 
 	private LocalDateTime venDataHora = LocalDateTime.now();
 	private Long venNfiscal;
-	private Float venTotal;
+	private BigDecimal venTotal;
 	private Long venNparcelas;
-	private Float venDesconto;
-	private Float venTotalLiquido;
-	private Float venValorPago;
-	private Float venTroco;
+	private BigDecimal venDesconto;
+	private BigDecimal venTotalLiquido;
+	private BigDecimal venValorPago;
+	private BigDecimal venTroco;
 
 	
 	public Integer getVenId() {
@@ -67,10 +68,10 @@ public class Venda {
 	public void setItensVenda(List<ItensVenda> itensVenda) {
 		this.itensVenda = itensVenda;
 	}
-	public Float getVenTotal() {
+	public BigDecimal getVenTotal() {
 		return venTotal;
 	}
-	public void setVenTotal(Float venTotal) {
+	public void setVenTotal(BigDecimal venTotal) {
 		this.venTotal = venTotal;
 	}
 	public Long getVenNparcelas() {
@@ -85,28 +86,28 @@ public class Venda {
 	public void setVenStatus(StatusVenda venStatus) {
 		this.venStatus = venStatus;
 	}
-	public Float getVenDesconto() {
+	public BigDecimal getVenDesconto() {
 		return venDesconto;
 	}
-	public void setVenDesconto(Float venDesconto) {
+	public void setVenDesconto(BigDecimal venDesconto) {
 		this.venDesconto = venDesconto;
 	}
-	public Float getVenTotalLiquido() {
+	public BigDecimal getVenTotalLiquido() {
 		return venTotalLiquido;
 	}
-	public void setVenTotalLiquido(Float venTotalLiquido) {
+	public void setVenTotalLiquido(BigDecimal venTotalLiquido) {
 		this.venTotalLiquido = venTotalLiquido;
 	}
-	public Float getVenValorPago() {
+	public BigDecimal getVenValorPago() {
 		return venValorPago;
 	}
-	public void setVenValorPago(Float venValorPago) {
+	public void setVenValorPago(BigDecimal venValorPago) {
 		this.venValorPago = venValorPago;
 	}
-	public Float getVenTroco() {
+	public BigDecimal getVenTroco() {
 		return venTroco;
 	}
-	public void setVenTroco(Float venTroco) {
+	public void setVenTroco(BigDecimal venTroco) {
 		this.venTroco = venTroco;
 	}
 	public TipoPagamento getTipoPagamento() {

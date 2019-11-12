@@ -6,6 +6,7 @@ import org.hibernate.validator.constraints.Length;
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Entity
@@ -17,8 +18,8 @@ public class Produto {
 	private String prodNome;
 	@NotEmpty @NotNull @Length(min=5)
 	private String prodDescricao;
-	private Float prodValorpago;
-	private Float prodValorvenda;
+	private BigDecimal prodValorpago;
+	private BigDecimal prodValorvenda;
 	private Float prodQtde;
 	private LocalDateTime prodDtCadastro = LocalDateTime.now(); 
 	@Enumerated(EnumType.STRING)
@@ -56,19 +57,19 @@ public class Produto {
 		this.prodDescricao = prodDescricao;
 	}
 
-	public Float getProdValorpago() {
+	public BigDecimal getProdValorpago() {
 		return prodValorpago;
 	}
 
-	public void setProdValorpago(Float prodValorpago) {
+	public void setProdValorpago(BigDecimal prodValorpago) {
 		this.prodValorpago = prodValorpago;
 	}
 
-	public Float getProdValorvenda() {
+	public BigDecimal getProdValorvenda() {
 		return prodValorvenda;
 	}
 
-	public void setProdValorvenda(Float prodValorvenda) {
+	public void setProdValorvenda(BigDecimal prodValorvenda) {
 		this.prodValorvenda = prodValorvenda;
 	}
 
