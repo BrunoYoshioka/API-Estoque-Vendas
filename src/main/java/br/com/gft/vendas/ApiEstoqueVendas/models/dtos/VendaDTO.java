@@ -1,9 +1,11 @@
 package br.com.gft.vendas.ApiEstoqueVendas.models.dtos;
 
+import br.com.gft.vendas.ApiEstoqueVendas.models.ItensVenda;
 import br.com.gft.vendas.ApiEstoqueVendas.models.Venda;
-import br.com.gft.vendas.ApiEstoqueVendas.utils.ObjectMapperUtils;
+import org.springframework.beans.BeanUtils;
 import org.springframework.data.domain.Page;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class VendaDTO {
@@ -39,7 +41,13 @@ public class VendaDTO {
     }
 
     public List<ItensVendaDTO> getItensVenda() {
-        return ObjectMapperUtils.mapAll(venda.getItensVenda(), ItensVendaDTO.class);
+        List<ItensVendaDTO> itensVendaDTO = new ArrayList<>();
+        for(ItensVenda itensVenda: venda.getItensVenda()) {
+            ItensVendaDTO itemVendaDto = new ItensVendaDTO();
+            BeanUtils.copyProperties(itensVenda , itemVendaDto);
+            itensVendaDTO.add(itemVendaDto);
+        }
+        return itensVendaDTO;
     }
 
     public static Page<VendaDTO> converter(Page<Venda> vendas) {
