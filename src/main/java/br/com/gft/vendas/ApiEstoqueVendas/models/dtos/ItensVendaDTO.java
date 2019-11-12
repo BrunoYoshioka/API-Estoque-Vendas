@@ -1,7 +1,7 @@
 package br.com.gft.vendas.ApiEstoqueVendas.models.dtos;
 
 import br.com.gft.vendas.ApiEstoqueVendas.models.Produto;
-import br.com.gft.vendas.ApiEstoqueVendas.utils.ObjectMapperUtils;
+import org.springframework.beans.BeanUtils;
 
 public class ItensVendaDTO {
     private Integer itvId;
@@ -46,7 +46,9 @@ public class ItensVendaDTO {
     }
 
     public ProdutoDTO getProdutos() {
-        return ObjectMapperUtils.map(produtos, ProdutoDTO.class);
+        ProdutoDTO produtoDTO = new ProdutoDTO();
+        BeanUtils.copyProperties(produtos, produtoDTO);
+        return produtoDTO;
     }
 
     public void setProdutos(Produto produtos) {

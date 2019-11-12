@@ -1,9 +1,8 @@
 package br.com.gft.vendas.ApiEstoqueVendas.controllers;
 
-import br.com.gft.vendas.ApiEstoqueVendas.jms.EnviarVendaJms;
 import br.com.gft.vendas.ApiEstoqueVendas.models.Venda;
 import br.com.gft.vendas.ApiEstoqueVendas.models.dtos.VendaDTO;
-import br.com.gft.vendas.ApiEstoqueVendas.models.form.VendaForm;
+import br.com.gft.vendas.ApiEstoqueVendas.models.dtos.VendaAtualizarDTO;
 import br.com.gft.vendas.ApiEstoqueVendas.services.VendaService;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +16,6 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import javax.validation.Valid;
 import java.net.URI;
-import java.util.Optional;
 
 @RestController
 @RequestMapping(value="/apivendas")
@@ -26,9 +24,6 @@ public class VendaController {
 	
 	@Autowired
 	private VendaService vendaService;
-
-	@Autowired
-    private EnviarVendaJms enviarVendaJms;
 
 	@GetMapping("/vendas")
     @ApiOperation(value = "Retorna uma lista de Vendas")
@@ -47,14 +42,13 @@ public class VendaController {
     @ApiOperation(value = "Cadastrar uma Venda")
     public ResponseEntity<Venda> cadastrar(@RequestBody @Valid Venda venda, UriComponentsBuilder uriBuilder) {
     	vendaService.cadastrar(venda);
-        enviarVendaJms.enviarVendaJms(venda);
         URI uri = uriBuilder.path("/venda/{id}").buildAndExpand(venda.getVenId()).toUri();
         return ResponseEntity.created(uri).body(venda);
     }
 
     @PutMapping("/venda/{id}")
     @ApiOperation(value = "Atualizar o Status da Venda")
-    public ResponseEntity<Venda> atualizar(@RequestBody @Valid VendaForm form, @PathVariable Integer id) {
+    public ResponseEntity<Venda> atualizar(@RequestBody @Valid VendaAtualizarDTO form, @PathVariable Integer id) {
 	    Venda venda = vendaService.atualizar(form, id);
 	    return ResponseEntity.ok(venda);
     }

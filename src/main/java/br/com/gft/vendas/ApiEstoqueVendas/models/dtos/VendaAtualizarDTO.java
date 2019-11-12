@@ -1,8 +1,8 @@
-package br.com.gft.vendas.ApiEstoqueVendas.models.form;
+package br.com.gft.vendas.ApiEstoqueVendas.models.dtos;
 
 import br.com.gft.vendas.ApiEstoqueVendas.models.enums.StatusVenda;
 
-public class VendaForm {
+public class VendaAtualizarDTO {
     private StatusVenda venStatus;
 
     public StatusVenda getVenStatus() {
