@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 @Entity
 public class Produto {
 	
-	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Id @GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer id;
 	@NotEmpty @NotNull @Length(min=5)
 	private String prodNome;

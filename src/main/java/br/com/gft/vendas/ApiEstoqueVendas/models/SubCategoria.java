@@ -8,7 +8,7 @@ import javax.validation.constraints.NotNull;
 
 @Entity
 public class SubCategoria {
-	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Id @GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer scatId;
 	@NotNull @NotEmpty @Length(min=3)
 	private String scatNome;

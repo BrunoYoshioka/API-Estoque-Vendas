@@ -1,0 +1,27 @@
+spring:
+  jpa:
+    database: POSTGRESQL
+    hibernate:
+      ddl-auto: create
+    properties:
+      hibernate:
+        show-sql: true
+        format_sql: true
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        jdbc:
+          lob:
+            non_contextual_creation: true
+
+  datasource:
+    platform: postgres
+    initialize: true
+    url: jdbc:postgresql://localhost:5432/apivendas
+    username: postgres
+    password:
+    initialization-mode: always
+
+  main:
+    allow-bean-definition-overriding: true
+
+  activemq:
+    broker-url: tcp://localhost:61616

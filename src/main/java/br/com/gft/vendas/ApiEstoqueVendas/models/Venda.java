@@ -12,7 +12,7 @@ import java.util.List;
 @Entity
 public class Venda {
 
-	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Id @GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer venId;
 
 	@ManyToOne

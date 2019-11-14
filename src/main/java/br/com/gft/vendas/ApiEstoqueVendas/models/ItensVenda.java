@@ -9,7 +9,7 @@ import java.math.BigDecimal;
 @Entity
 public class ItensVenda {
 
-	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Id @GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer itvId;
 	private Integer itvQtde;
 	private BigDecimal itvValor;

@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
 public class ParcelaVenda {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer pveId;
 	private BigDecimal pveValor;
 	private LocalDateTime pveDataPagto = LocalDateTime.now();

@@ -14,7 +14,7 @@ import javax.validation.constraints.NotNull;
 public class Cliente {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer id;
 	@NotEmpty @NotNull @Length(min=14)
 	private String cliCpfcnpj;

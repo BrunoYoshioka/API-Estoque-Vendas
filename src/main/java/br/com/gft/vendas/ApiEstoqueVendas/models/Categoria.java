@@ -12,7 +12,7 @@ import javax.validation.constraints.NotNull;
 @Entity
 public class Categoria {
 	
-	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Id @GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer catId;
 
 	@NotEmpty @NotNull @Length(min=3)
